@@ -1,0 +1,24 @@
+.container {
+  height: 100vh;
+}
+
+.body {
+  text-align: center;
+}
+
+.header {
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 21px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.text {
+  text-align: center;
+  color: rgba(255, 255, 255, 1);
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 12px;
+}

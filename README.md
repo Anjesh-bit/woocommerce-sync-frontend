@@ -48,3 +48,5 @@ These suggestions will appear when first launching VSCode in the workspace or wh
 | Code Spell Checker | Spelling checker for source code                                             | [VS Marketplace](https://marketplace.visualstudio.com/items?itemName=streetsidesoftware.code-spell-checker) |
 | Git Graph          | View a Git Graph of your repository, and perform Git actions from the graph. | [VS Marketplace](https://marketplace.visualstudio.com/items?itemName=mhutchie.git-graph)                    |
 | VSCode Remote      | View remote machines for Remote - SSH and Remote Server                      | [VS Marketplace](https://marketplace.visualstudio.com/items?itemName=ms-vscode.remote-explorer)             |
+
+👉 **Full Project Description:** Check out the [docs/project-description.md](docs/project-description.md) file for detailed information.

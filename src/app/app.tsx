@@ -1,22 +1,26 @@
 import { MantineProvider } from "@mantine/core";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { BrowserRouter } from "react-router-dom";
 
-import { Layout } from "./components/layout/layout";
 import { theme } from "../config/theme";
+import { Layout } from "./components/layout/layout";
+import { AppRouter } from "./navigation/app-router";
 
 const queryClient = new QueryClient();
 
 function App() {
   return (
-    <QueryClientProvider client={queryClient}>
-      <MantineProvider theme={theme}>
-        <Layout>
-          <div> Welcome to Matat Web Application. </div>
-        </Layout>
-      </MantineProvider>
-      <ReactQueryDevtools initialIsOpen={false} />
-    </QueryClientProvider>
+    <BrowserRouter>
+      <QueryClientProvider client={queryClient}>
+        <MantineProvider theme={theme}>
+          <Layout>
+            <AppRouter />
+          </Layout>
+        </MantineProvider>
+        <ReactQueryDevtools initialIsOpen={false} />
+      </QueryClientProvider>
+    </BrowserRouter>
   );
 }
 

@@ -2,6 +2,7 @@ import React, { Suspense } from "react";
 import ReactDOM from "react-dom/client";
 
 import "@mantine/core/styles.css";
+import "mantine-datatable/styles.css";
 
 import App from "./app/app.tsx";
 import "./index.css";

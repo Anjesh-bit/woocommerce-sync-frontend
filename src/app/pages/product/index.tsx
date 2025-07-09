@@ -1,22 +1,25 @@
 import { Stack, TextInput, Title, Group, Box, ThemeIcon } from "@mantine/core";
 import { useDebouncedValue } from "@mantine/hooks";
-import { useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import styles from "./product.module.css";
 import { useProducts } from "./use-product.services";
 import { ProductSvg, SearchSvg } from "../../../assets/static/icons";
 import { ProductTable } from "../../components/table/product.table";
+import { Toast } from "../../components/toast";
+import { useToastManager } from "../../hooks/use-toast";
 
 export default function Product() {
   const [search, setSearch] = useState("");
   const [debouncedSearch] = useDebouncedValue(search, 400);
   const navigate = useNavigate();
+  const { showError, toastProps } = useToastManager();
   const [sort, setSort] = useState<"name" | "price">("name");
   const [order, setOrder] = useState<"asc" | "desc">("asc");
   const [page, setPage] = useState(1);
 
-  const { data, isLoading } = useProducts({
+  const { data, isLoading, error, isError } = useProducts({
     search: debouncedSearch,
     sort,
     order,
@@ -33,41 +36,50 @@ export default function Product() {
     }
   };
 
+  useEffect(() => {
+    if (isError && error) {
+      showError(error, "Failed to load orders");
+    }
+  }, [isError, error, showError]);
+
   return (
-    <Stack p="md">
-      <Box className={styles["product-title"]}>
-        <Title order={2}>Products</Title>
-        <ThemeIcon size="lg" radius="md" variant="gradient" gradient={{ from: "#FFD700", to: "#FFA500", deg: 45 }}>
-          <ProductSvg />
-        </ThemeIcon>
-      </Box>
-      <Group grow>
-        <TextInput
-          placeholder="Search by name or SKU"
-          leftSection={<SearchSvg />}
-          value={search}
-          onChange={(e) => setSearch(e.currentTarget.value)}
-          styles={{
-            input: {
-              border: "2px solid rgb(255, 165, 0)",
-            },
+    <Fragment>
+      <Toast {...toastProps} />
+      <Stack p="md">
+        <Box className={styles["product-title"]}>
+          <Title order={2}>Products</Title>
+          <ThemeIcon size="lg" radius="md" variant="gradient" gradient={{ from: "#FFD700", to: "#FFA500", deg: 45 }}>
+            <ProductSvg />
+          </ThemeIcon>
+        </Box>
+        <Group grow>
+          <TextInput
+            placeholder="Search by name or SKU"
+            leftSection={<SearchSvg />}
+            value={search}
+            onChange={(e) => setSearch(e.currentTarget.value)}
+            styles={{
+              input: {
+                border: "2px solid rgb(255, 165, 0)",
+              },
+            }}
+          />
+        </Group>
+
+        <ProductTable
+          data={data?.data || []}
+          isLoading={isLoading}
+          page={page}
+          total={data?.pagination.total || 0}
+          onPageChange={setPage}
+          onSortChange={handleSort}
+          sortKey={sort}
+          sortOrder={order}
+          onFilterByProductId={(id) => {
+            navigate(`/orders?productId=${id}`);
           }}
         />
-      </Group>
-
-      <ProductTable
-        data={data?.data || []}
-        isLoading={isLoading}
-        page={page}
-        total={data?.pagination.total || 0}
-        onPageChange={setPage}
-        onSortChange={handleSort}
-        sortKey={sort}
-        sortOrder={order}
-        onFilterByProductId={(id) => {
-          navigate(`/orders?productId=${id}`);
-        }}
-      />
-    </Stack>
+      </Stack>
+    </Fragment>
   );
 }

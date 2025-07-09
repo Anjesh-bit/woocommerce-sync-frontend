@@ -1,4 +1,4 @@
-# Frontend Dashboard Application
+# Frontend Dashboard Application(WooCommerce Sync Frontend)
 
 A modern, type-safe React application built with domain-driven architecture for managing products and orders through an intuitive dashboard interface.
 
@@ -163,7 +163,9 @@ Dashboard landing page with navigation:
 
 ### `/order`
 
-Complete order management system with flat file structure:
+- You can filter the order list by total or created. Simply hover over the table header and click to toggle between sorting options
+
+  Complete order management system with flat file structure:
 
 - **order.api.ts**: All order-related API endpoints and HTTP calls
 - **order.types.ts**: TypeScript interfaces for order data structures
@@ -174,8 +176,9 @@ Complete order management system with flat file structure:
 
 ### `/product`
 
-Product management functionality with consistent structure:
+- You can filter the product list by name or price. Simply hover over the table header and click to toggle between sorting options
 
+  Product management functionality with consistent structure:
 - **product.api.ts**: Product-related API calls and data fetching
 - **product.types.ts**: Product interfaces and type definitions
 - **product.module.css**: Product-specific styling with CSS modules

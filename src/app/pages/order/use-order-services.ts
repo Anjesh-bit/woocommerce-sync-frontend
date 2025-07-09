@@ -10,6 +10,7 @@ export const useOrders = (query?: OrderQueryParams) =>
   useQuery<OrdersApiResponse, Error>({
     queryKey: OrdersQueryKeys.list(query),
     queryFn: () => fetchOrders(query),
+    refetchOnWindowFocus: false,
   });
 
 export const useOrder = (id?: string) =>
@@ -20,6 +21,7 @@ export const useOrder = (id?: string) =>
       return fetchOrderById(id);
     },
     enabled: !!id,
+    refetchOnWindowFocus: false,
   });
 
 export const useOrdersByProduct = (productId?: string) =>

@@ -43,6 +43,7 @@ export function PaginatedDataTable<TRecord extends TableRecord = TableRecord>({
   return (
     <Paper withBorder radius="md" p="md">
       <DataTable<TRecord>
+        minHeight={250}
         records={dataSource}
         columns={columnDefinitions}
         totalRecords={effectiveTotalRecordCount}

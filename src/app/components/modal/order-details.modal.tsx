@@ -14,9 +14,9 @@ import {
   Title,
   Grid,
   Flex,
-  rem,
 } from "@mantine/core";
 
+import styles from "./order-details.module.css";
 import { OrderDetailsModalProps } from "./order-details.types";
 import {
   UserSvg,
@@ -58,6 +58,9 @@ export function OrderDetailModal({ order, opened, onClose }: OrderDetailsModalPr
     <Modal
       opened={opened}
       onClose={onClose}
+      size="xl"
+      padding="xl"
+      radius="md"
       title={
         <Group gap="md">
           <ThemeIcon size="lg" radius="md" variant="gradient" gradient={{ from: "#FFD700", to: "#FFA500", deg: 45 }}>
@@ -73,37 +76,15 @@ export function OrderDetailModal({ order, opened, onClose }: OrderDetailsModalPr
           </Box>
         </Group>
       }
-      size="xl"
-      padding="xl"
-      radius="md"
       styles={{
-        header: {
-          backgroundColor: "var(--mantine-color-gray-0)",
-          borderBottom: `2px solid #FFD700`,
-          marginBottom: 0,
-        },
-        body: {
-          padding: 0,
-        },
+        header: { className: styles["modal-header"] },
+        body: { className: styles["modal-body"] },
       }}
     >
       <Stack gap="lg" p="xl">
         <Grid>
           <Grid.Col span={6}>
-            <Card
-              withBorder
-              radius="md"
-              p="md"
-              styles={{
-                root: {
-                  borderLeft: `4px solid #FFD700`,
-                  transition: "all 0.2s ease",
-                  "&:hover": {
-                    boxShadow: "0 4px 12px rgba(255, 215, 0, 0.15)",
-                  },
-                },
-              }}
-            >
+            <Card withBorder radius="md" p="md" className={styles["card-root"]}>
               <Group gap="sm">
                 <ThemeIcon size="md" radius="md" variant="light" color="blue">
                   <UserSvg />
@@ -121,20 +102,7 @@ export function OrderDetailModal({ order, opened, onClose }: OrderDetailsModalPr
           </Grid.Col>
 
           <Grid.Col span={6}>
-            <Card
-              withBorder
-              radius="md"
-              p="md"
-              styles={{
-                root: {
-                  borderLeft: `4px solid #FFD700`,
-                  transition: "all 0.2s ease",
-                  "&:hover": {
-                    boxShadow: "0 4px 12px rgba(255, 215, 0, 0.15)",
-                  },
-                },
-              }}
-            >
+            <Card withBorder radius="md" p="md" className={styles["card-root"]}>
               <Group gap="sm">
                 <ThemeIcon size="md" radius="md" variant="light" color="teal">
                   <CalendarSvg />
@@ -152,36 +120,14 @@ export function OrderDetailModal({ order, opened, onClose }: OrderDetailsModalPr
           </Grid.Col>
         </Grid>
 
-        <Paper
-          withBorder
-          radius="md"
-          p="md"
-          styles={{
-            root: {
-              background: "linear-gradient(135deg, #fefefe 0%, #f8f9fa 100%)",
-              border: `1px solid #e9ecef`,
-            },
-          }}
-        >
+        <Paper withBorder radius="md" p="md" className={styles["paper-root"]}>
           <Flex justify="space-between" align="center">
             <Group gap="md">
               <Box>
                 <Text size="xs" tt="uppercase" fw={700} c="dimmed">
                   Status
                 </Text>
-                <Badge
-                  color={statusColor}
-                  variant="light"
-                  radius="md"
-                  size="lg"
-                  styles={{
-                    root: {
-                      fontWeight: 600,
-                      textTransform: "uppercase",
-                      letterSpacing: "0.5px",
-                    },
-                  }}
-                >
+                <Badge color={statusColor} variant="light" radius="md" size="lg" className={styles["status-badge"]}>
                   {statusLabel}
                 </Badge>
               </Box>
@@ -216,19 +162,7 @@ export function OrderDetailModal({ order, opened, onClose }: OrderDetailsModalPr
                 >
                   <CurrencyDollarSvg />
                 </ThemeIcon>
-                <Text
-                  size="xl"
-                  fw={700}
-                  c="dark.8"
-                  styles={{
-                    root: {
-                      background: "linear-gradient(135deg, #FFD700 0%, #FFA500 100%)",
-                      WebkitBackgroundClip: "text",
-                      WebkitTextFillColor: "transparent",
-                      backgroundClip: "text",
-                    },
-                  }}
-                >
+                <Text size="xl" fw={700} c="dark.8" className={styles["gradient-text"]}>
                   ${Number(total).toFixed(2)}
                 </Text>
               </Group>
@@ -248,99 +182,52 @@ export function OrderDetailModal({ order, opened, onClose }: OrderDetailsModalPr
             </Group>
           }
           labelPosition="center"
-          styles={{
-            label: {
-              fontSize: rem(14),
-              fontWeight: 600,
-            },
-          }}
+          className={styles["divider-label"]}
         />
 
-        <Paper
-          withBorder
-          radius="md"
-          p="md"
-          styles={{
-            root: {
-              overflow: "hidden",
-              border: `1px solid #e9ecef`,
-            },
-          }}
-        >
-          <Table
-            striped
-            highlightOnHover
-            withTableBorder={false}
-            styles={{
-              th: {
-                backgroundColor: "#f8f9fa",
-                fontWeight: 700,
-                fontSize: rem(12),
-                textTransform: "uppercase",
-                letterSpacing: "0.5px",
-                color: "var(--mantine-color-dark-6)",
-                borderBottom: `2px solid #FFD700`,
-                padding: "12px 16px",
-              },
-              td: {
-                padding: "16px",
-                verticalAlign: "middle",
-                borderBottom: "1px solid #f1f3f5",
-              },
-              tbody: {
-                tr: {
-                  transition: "all 0.2s ease",
-                  "&:hover": {
-                    backgroundColor: "rgba(255, 215, 0, 0.05)",
-                  },
-                },
-              },
-            }}
-          >
+        <Paper withBorder radius="md" p="md" className={styles["paper-root-alt"]}>
+          <Table striped highlightOnHover withTableBorder={false}>
             <Table.Thead>
               <Table.Tr>
-                <Table.Th>Product</Table.Th>
-                <Table.Th ta="center">Quantity</Table.Th>
-                <Table.Th ta="right">Unit Price</Table.Th>
-                <Table.Th ta="right">Total</Table.Th>
-                <Table.Th ta="center">Image</Table.Th>
+                <Table.Th className={styles["table-th"]}>Product</Table.Th>
+                <Table.Th className={styles["table-th"]} ta="center">
+                  Quantity
+                </Table.Th>
+                <Table.Th className={styles["table-th"]} ta="right">
+                  Unit Price
+                </Table.Th>
+                <Table.Th className={styles["table-th"]} ta="right">
+                  Total
+                </Table.Th>
+                <Table.Th className={styles["table-th"]} ta="center">
+                  Image
+                </Table.Th>
               </Table.Tr>
             </Table.Thead>
             <Table.Tbody>
               {line_items.map(({ id, name = "Unnamed Product", quantity, total: itemTotal, image }) => (
-                <Table.Tr key={id}>
-                  <Table.Td>
+                <Table.Tr key={id} className={styles["table-row"]}>
+                  <Table.Td className={styles["table-td"]}>
                     <Text fw={600} c="dark.8">
                       {name}
                     </Text>
                   </Table.Td>
-                  <Table.Td ta="center">
+                  <Table.Td className={styles["table-td"]} ta="center">
                     <Badge variant="light" color="blue" radius="md" size="sm">
                       {quantity}
                     </Badge>
                   </Table.Td>
-                  <Table.Td ta="right">
+                  <Table.Td className={styles["table-td"]} ta="right">
                     <Text c="dark.6" fw={500}>
                       ${(Number(itemTotal) / Number(quantity)).toFixed(2)}
                     </Text>
                   </Table.Td>
-                  <Table.Td ta="right">
-                    <Text
-                      fw={700}
-                      c="dark.8"
-                      styles={{
-                        root: {
-                          background: "linear-gradient(135deg, #FFD700 0%, #FFA500 100%)",
-                          WebkitBackgroundClip: "text",
-                          WebkitTextFillColor: "transparent",
-                          backgroundClip: "text",
-                        },
-                      }}
-                    >
+                  <Table.Td className={styles["table-td"]} ta="right">
+                    <Text fw={700} c="dark.8" className={styles["gradient-text"]}>
                       ${Number(itemTotal).toFixed(2)}
                     </Text>
                   </Table.Td>
-                  <Table.Td ta="center">
+                  <Table.Td className={styles["table-td"]} ta="center">
                     {image?.src ? (
                       <Image
                         src={image.src}
@@ -349,30 +236,10 @@ export function OrderDetailModal({ order, opened, onClose }: OrderDetailsModalPr
                         height={50}
                         radius="md"
                         fallbackSrc="https://via.placeholder.com/50x50/f8f9fa/6c757d?text=No+Image"
-                        styles={{
-                          root: {
-                            border: "2px solid #f1f3f5",
-                            transition: "all 0.2s ease",
-                            "&:hover": {
-                              borderColor: "#FFD700",
-                              transform: "scale(1.05)",
-                            },
-                          },
-                        }}
+                        className={styles["image-root"]}
                       />
                     ) : (
-                      <Paper
-                        w={50}
-                        h={50}
-                        radius="md"
-                        bg="gray.1"
-                        style={{
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "center",
-                          border: "2px solid #e9ecef",
-                        }}
-                      >
+                      <Paper w={50} h={50} radius="md" bg="gray.1" className={styles["image-placeholder"]}>
                         <Text size="xs" c="dimmed" fw={500}>
                           N/A
                         </Text>
@@ -385,17 +252,7 @@ export function OrderDetailModal({ order, opened, onClose }: OrderDetailsModalPr
           </Table>
         </Paper>
 
-        <Paper
-          withBorder
-          radius="md"
-          p="md"
-          styles={{
-            root: {
-              background: "linear-gradient(135deg, #fff 0%, #f8f9fa 100%)",
-              borderTop: `3px solid #FFD700`,
-            },
-          }}
-        >
+        <Paper withBorder radius="md" p="md" className={styles["paper-root-summary"]}>
           <Group justify="space-between" align="center">
             <Text size="sm" c="dimmed">
               Order contains {itemCount} items
@@ -404,19 +261,7 @@ export function OrderDetailModal({ order, opened, onClose }: OrderDetailsModalPr
               <Text size="sm" c="dimmed">
                 Subtotal:
               </Text>
-              <Text
-                size="lg"
-                fw={700}
-                c="dark.8"
-                styles={{
-                  root: {
-                    background: "linear-gradient(135deg, #FFD700 0%, #FFA500 100%)",
-                    WebkitBackgroundClip: "text",
-                    WebkitTextFillColor: "transparent",
-                    backgroundClip: "text",
-                  },
-                }}
-              >
+              <Text size="lg" fw={700} c="dark.8" className={styles["gradient-text"]}>
                 ${subtotal.toFixed(2)}
               </Text>
             </Group>
